@@ -11,6 +11,12 @@ const app = express();
 
 app.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+  });
+
 const saveMessage = () => {
   fs.writeFile(
     "./database/Messages.json",
